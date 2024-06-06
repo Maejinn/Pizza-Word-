@@ -1,0 +1,481 @@
+﻿@using _20DTH1A_LT_WEB_BaiThuHoach_ThaiThanhDat_2000004681.Models;
+<!-- CONTAINER -->
+<div class="container">
+    <!--    ============================
+                    SEARCH CONTENT
+            ============================ -->
+    <div class="search-content" id="search-content">
+        <!-- FILTER -->
+        <div class="row search-filter">
+            <div class="row col-md-10">
+                <div class="col-md-4">
+                    <span class="search-filter-label">Loại:</span>
+                    <select class="form-search-filter" name="select-food" id="select-food">
+                        <option value="all">Tất cả</option>
+                        <option value="combo">Combo</option>
+                        <option value="pizza">Pizza</option>
+                        <option value="myy">Mỳ Ý</option>
+                        <option value="salad">Salad</option>
+                        <option value="giaikhat">Nước uống</option>
+                    </select>
+                </div>
+                <div class="row col-md-4">
+                    <span class="search-filter-label col-2">Giá:</span>
+                    <input type="number" id="filter-min-price" min=0 class="form-search-filter col-5"
+                           placeholder="Từ...">
+                    <input type="number" id="filter-max-price" min=0 class="form-search-filter col-5"
+                           placeholder="Đến...">
+                </div>
+
+                <div class="col-md-4">
+                    <span class="search-filter-label col-2">Sắp xếp:</span>
+                    <select class="form-search-filter" name="select-sort" id="select-sort">
+                        <option value="LowToHeight">Giá: Thấp tới cao</option>
+                        <option value="HeightToLow">Giá: Cao tới thấp</option>
+                    </select>
+
+                </div>
+
+                <button class="btn btn-success" id="btn-search-filter" onclick="timKiemNangCao();">
+                    <i class="fas fa-search">
+                    </i>
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- RESUL SEARCH -->
+        <div id="search-result">
+            <div class="row">
+                <div class="col-md-6">
+                    Số kết quả phù hợp:&nbsp;
+                    <span id="number-of-result">0</span>
+                </div>
+            </div>
+            <!-- PAGE BREAK -->
+            <div class="col-12 search-break-page">
+                <ul class="page-list">
+                    <li class="page-item">
+                        <button class="btn btn-page" onclick="search1();">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page select-page" id="btn-search-page1-1"
+                                onclick="search1();">
+                            1
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page" id="btn-search-page2-1" onclick="search2();">2</button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page" onclick="search2();">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <div class="row product-list" id="result-search1">
+                <!-- Đổ JS -->
+            </div>
+            <div class="row product-list" id="result-search2">
+                <!-- Đổ JS -->
+            </div>
+            <!-- PAGE BREAK -->
+            <div class="col-12 search-break-page">
+                <ul class="page-list">
+                    <li class="page-item">
+                        <button class="btn btn-page" onclick="search1();">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page select-page" id="btn-search-page1"
+                                onclick="search1();">
+                            1
+                        </button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page" id="btn-search-page2" onclick="search2();">2</button>
+                    </li>
+                    <li class="page-item">
+                        <button class="btn btn-page" onclick="search2();">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--    ============================
+                            SEARCH CONTENT
+                    ============================ -->
+    <!-- COMBO -->
+    <div id="combo">
+        <h1 class="title-product-group">COMBO/KHUYẾN MÃI</h1>
+        <div class="row product-list">
+            @{
+                int n = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(1))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (n++ >= 4)
+                    {
+                        break;
+                    }
+                }
+            }
+
+        </div>
+
+    </div>
+    <!-- END COMBO -->
+    <!--KHAIVI-->
+    <div id="khaivi">
+        <h1 class="title-product-group" id="khaivi">Khai Vị</h1>
+        <div class="row product-list">
+            @{
+                int p= 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(2))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.tenSP</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (p++ >= 4)
+                    {
+                        break;
+                    }
+
+                }
+            }
+        </div>
+    </div>
+    <!--END KHAIVI-->
+    <!-- PIZZA -->
+    <div id="pizza">
+        <h1 class="title-product-group" id="pizza">PIZZA</h1>
+        <div class="row product-list" id="pizza-page-1">
+            @{
+                int m = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(3))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (m++ >= 8)
+                    {
+                        break;
+                    }
+                }
+            }
+        </div>
+    </div>
+    <!-- END PIZZA -->
+    <!-- MY Y -->
+    <div id="myy">
+        <h1 class="title-product-group" id="myy">MỲ Ý</h1>
+        <div class="row product-list">
+            @{
+                int l = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(4))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (l++ >= 4)
+                    {
+                        break;
+                    }
+                }
+            }
+
+
+
+
+
+
+        </div>
+    </div>
+    <!-- END MY Y -->
+    <!-- SALAD -->
+    <div id="salad">
+        <h1 class="title-product-group" id="salad">SALAD</h1>
+        <div class="row product-list">
+            @{
+                int b = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(5))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (b++ >= 8)
+                    {
+                        break;
+                    }
+                }
+            }
+        </div>
+    </div>
+    <!-- END SALAD -->
+    <!-- DRINK -->
+    <div id="giaikhat">
+        <h1 class="title-product-group" id="giaikhat">Nước uống</h1>
+        <div class="row product-list">
+            @{
+                int z = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(6))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (z++ >= 4)
+                    {
+                        break;
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</div>
+    <!-- END DRINK -->
+
+<!-- END CONTAINER -->
+<!-- MODAL CART SHOPPING -->
+<div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!--Header-->
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Giỏ hàng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--Body-->
+            <div class="modal-body" id="modal-body-cart">
+                <!-- ĐỔ JS -->
+                <!-- product -->
+                <div class="row product-row" id="no-product">
+                    <img src="~/img/no-product-cart.jpg" alt="khong co san pham" class="col-12">
+                </div>
+                <!-- end product -->
+            </div>
+            <div id="cart-total" class="total ml-auto" style="display: none;">
+                <h3 style="color: red;">
+                    Tổng cộng:&nbsp;&nbsp;
+                </h3>
+                <h3 id="number-total" style="color: red; padding-right: 12px;">
+                    0
+                    <!-- Tính bằng JS -->
+                </h3>
+            </div>
+            <!--Footer-->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Đóng</button>
+                <a class="btn btn-success" id="btn-success" style="display: none;" data-toggle="modal" data-target="#giaoHang" href="" data-dismiss="modal"
+                   aria-label="Close">Mua ngay</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL CART SHOPPING -->
+<!-- MODAL INTRODUCE -->
+<div class="modal fade" tabindex="-1" role="dialog" id="gioiThieu">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giới thiệu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Pizza World là chuỗi nhà hàng pizza được yêu thích và lớn nhất thế giới, trực thuộc tập đoàn SGU!
+                    (www.SGU.com). Pizza World tự hào hiện diện tại 100 quốc gia trên khắp thế giới từ tháng 10 năm
+                    2020.
+                </p>
+                <p>
+                    Sự kiện này đánh dấu một cột mốc ý nghĩa để minh chứng cho sự cam kết của nhãn hàng về chất lượng
+                    pizza hảo
+                    hạng và phong cách phục vụ chuyên nghiệp.
+                </p>
+                <p>
+                    Pizza World có mặt tại Việt Nam từ năm 2020 với 100% vốn SGU; và hiện đã phát triển hơn 50 nhà
+                    hàng với
+                    trên 3.000 nhân viên.
+                </p>
+                <p>
+                    Pizza World Việt Nam - nơi bạn được thỏa sức thể hiện chính mình với cơ hội hấp dẫn để phát triển
+                    cá nhân lẫn
+                    nghề nghiệp toàn diện!
+                </p>
+                <p>
+                    Chúng tôi tân tâm mang đến một môi trường làm việc thân thiện và chuyên nghiệp cho từng nhân
+                    viên, nỗ lực
+                    hoàn thiện giá trị “Cùng nhau hướng đến một Pizza World TUYỆT VỜI!”
+                </p>
+                <div style="display: flex; justify-content: center;">
+                    <img src="~/img/mapPizza.png" alt="Bản đồ chi nhánh" style="width:70%;">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL INTRODUCE -->
+<!-- MODAL INFO PRODUCT -->
+<div class="modal fade" tabindex="-1" role="dialog" id="chiTiet">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Chi tiết sản phẩm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-main">
+                    <div class="detail-image">
+                        <img src="~/img/combo0.png" alt="Hinh-anh" id="detail-img" style="width: 100%;">
+                    </div>
+                    <div class="detail-content">
+                        <h3 id="detail-title">Tên món</h3>
+                        <p id="detail-description">Mô tả</p>
+                        <span id="detail-quantity">
+                            <p>Số lượng:</p>
+                            <input type="number" class="detail-input" id="quantity" value="1" min="1" max="10">
+                            <p>Size:</p>
+                            <select class="detail-input" onchange="tinhTien();" id="sizePizza">
+                                <option value="M">M</option>
+                                <option value="L">L</option>
+                                <option value="XL">XL</option>
+                            </select>
+                        </span>
+                        <div class="detail-price">
+                            <h4>Tổng cộng:</h4>
+                            <h4 id="price-total">.000đ</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal"
+                        onclick="themVaoGio();">
+                    Thêm vào giỏ hàng
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL INFO PRODUCT -->

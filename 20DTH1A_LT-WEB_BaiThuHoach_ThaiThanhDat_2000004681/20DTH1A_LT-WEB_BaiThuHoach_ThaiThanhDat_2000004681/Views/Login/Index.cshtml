@@ -1,0 +1,56 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập - Quản trị Pizza World</title>
+    <link rel="shortcut icon" type="image/png" href="~/img/favicon.ico" />
+    <link rel="stylesheet" href="~/Content/css/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/css/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/css/admin-login.css">
+</head>
+
+<style>
+    * {
+        color: #fff !important;
+    }
+
+    body {
+        background-image: url('~/img/background-admin.jpg');
+        background-size: cover;
+    }
+</style>
+
+<body>
+    @using (Html.BeginForm("index", "Login", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-login">
+
+            <img src="~/img/logo.png" alt="logo">
+            <h1 class="title">Đăng nhập quyền quản trị</h1>
+
+            <div class="form-group">
+                <i class="icon fas fa-user"></i>
+                @Html.TextBox("tk", "", new { @class = "form-control ",  @placeholder = "Tài khoản..." })
+            </div>
+
+            <div class="form-group">
+                <i class="icon fas fa-key"></i>
+                @Html.Password("password", "", new { @class = "form-control ", @id = "password" , @placeholder = "••••••••••" })
+            </div>
+
+            <div class="form-group" style="border: none; margin-top: 0;">
+                <button type="submit" class="btn btn-success">Đăng nhập</button>
+            </div>
+        </div>
+    }
+
+    
+</body>
+</html>

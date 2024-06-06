@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3d116e73f9cb470a8daacf949a9148a7" Name="Diagram1">
+        <EntityTypeShape EntityType="PizzaWorld.CtDonHang" Width="1.5" PointX="5.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaWorld.DonHang" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaWorld.KhachHang" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaWorld.LoaiSP" Width="1.5" PointX="3.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaWorld.SanPham" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="PizzaWorld.TaiKhoan" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="PizzaWorld.FK__CtDonHang__soDH__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaWorld.FK__DonHang__maKH__3A81B327" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaWorld.FK__DonHang__taiKhoa__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaWorld.FK__SanPham__maLoai__300424B4" ManuallyRouted="false" />
+        <AssociationConnector Association="PizzaWorld.FK__SanPham__taiKhoa__31EC6D26" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

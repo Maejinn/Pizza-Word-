@@ -1,0 +1,42 @@
+﻿@using _20DTH1A_LT_WEB_BaiThuHoach_ThaiThanhDat_2000004681.Models;
+<div class="container">
+    <!-- COMBO -->
+    <div id="combo">
+        <h1 class="title-product-group">COMBO/KHUYẾN MÃI</h1>
+        <div class="row product-list">
+            @{
+                int n = 1;
+                foreach (SanPham j in Common.getProductsByLoaiSP(1))
+                {
+                    <div class="col-md-6 col-lg-3 col-12">
+                        <div class="card">
+                            <div class="inner-img">
+                                <img class="card-img-top" src="@j.hinhDD">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@j.tenSP</h5>
+                                <p class="card-text">@j.ndTomTat</p>
+                                <span class="cart-price">
+                                    <span class="card-old-price">350.000đ</span>
+                                    <span class="card-current-price">@j.giaBan</span>
+                                </span>
+                                <button type="button" data-toggle="modal" data-target="#chiTiet"
+                                        onclick="chiTiet('@j.tenSP', '@j.ndTomTat', '@j.giaBan', '@j.hinhDD');"
+                                        class="btn btn-success btn-add-to-cart">
+                                    Thêm vào
+                                    giỏ hàng
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    if (n++ >= 4)
+                    {
+                        break;
+                    }
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<!-- END COMBO -->
